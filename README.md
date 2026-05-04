@@ -1,75 +1,60 @@
-# React + TypeScript + Vite
+To run
+npm install
+npm run dev
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Main Components
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+UserProfileCard:
 
-## React Compiler
+A reusable user profile component that displays user information and supports optional features like email, role, and edit actions.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+UserProfileCardProps {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    avatarUrl: string;
+  };
 
-Note: This will impact Vite dev & build performances.
+  showEmail?: boolean;
+  showRole?: boolean;
 
-## Expanding the ESLint configuration
+  onEdit?: (userId: string) => void;
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  children?: React.ReactNode;
+}
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+ProductDisplay:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+A reusable component that displays product details such as name, price, image, and stock status. It also supports optional UI features like stock visibility and add-to-cart functionality.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+ProductDisplayProps {
+  product: {
+    id: string;
+    name: string;
+    price: number;
+    imageUrl: string;
+    inStock: boolean;
+  };
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+  showStockStatus?: boolean;
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+  onAddToCart?: (productId: string) => void;
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+  children?: React.ReactNode;
+}
+
+1. How did you handle optional props in your components?
+
+I handled optional props by putting "?" in the interface definition and for optional functions using optional chaining (?.) to ensure it would only call if the function was defined.
+
+2. What considerations did you make when designing the component interfaces?
+
+Well I didn't really make the interfaces I used what was given for the lab. But they are designed to give order but also be flexible.
+
+3. How did you ensure type safety across your components?
+
+By defining every item and their props, it means nothing is unaccounted for an everything has a set type.
+
